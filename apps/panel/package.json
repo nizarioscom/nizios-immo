@@ -1,0 +1,24 @@
+{
+  "name": "@nizios/panel",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev -p 3002 -H 0.0.0.0",
+    "build": "next build",
+    "start": "next start -p 3002 -H 0.0.0.0",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "next": "14.2.28",
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "22.15.21",
+    "@types/react": "18.3.18",
+    "@types/react-dom": "18.3.5",
+    "eslint": "8.57.1",
+    "eslint-config-next": "14.2.28",
+    "typescript": "5.6.3"
+  }
+}

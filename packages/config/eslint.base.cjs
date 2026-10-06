@@ -1,0 +1,16 @@
+/** Config ESLint partagée (packages Node). Les apps Next ont leur propre config. */
+module.exports = {
+  root: true,
+  parser: '@typescript-eslint/parser',
+  plugins: ['@typescript-eslint'],
+  extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended'],
+  env: { node: true, es2022: true },
+  ignorePatterns: ['dist', '.next', 'node_modules', 'coverage'],
+  rules: {
+    '@typescript-eslint/no-unused-vars': [
+      'error',
+      { argsIgnorePattern: '^_', varsIgnorePattern: '^_' },
+    ],
+    '@typescript-eslint/no-explicit-any': 'off',
+  },
+};

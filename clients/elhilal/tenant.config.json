@@ -1,0 +1,37 @@
+{
+  "slug": "elhilal",
+  "name": "Elhilal",
+  "status": "onboarding",
+  "domains": [
+    "localhost",
+    "127.0.0.1",
+    "elhilal.localhost",
+    "elhilal.nizarios.fr"
+  ],
+  "defaultLocale": "fr",
+  "locales": ["fr", "ar"],
+  "whatsappNumbers": ["+212600000026"],
+  "branding": {
+    "primaryColor": "#14532d",
+    "logoPath": "assets/logo.svg",
+    "tagline": {
+      "fr": "Agence immobilière à Rabat",
+      "ar": "وكالة عقارية في الرباط"
+    }
+  },
+  "contacts": {
+    "city": "Rabat",
+    "districts": ["Agdal", "Hay Riad", "Hassan"],
+    "email": "",
+    "phone": ""
+  },
+  "admin": {
+    "email": "admin@elhilal.example",
+    "name": "Admin Elhilal"
+  },
+  "config": {
+    "pack": "presence-digitale-immo",
+    "priceMad": 2900,
+    "clientNumber": 26
+  }
+}

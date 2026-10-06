@@ -1,0 +1,31 @@
+{
+  "slug": "votre-slug",
+  "name": "CHANGEME — Nom de l'agence",
+  "status": "onboarding",
+  "domains": ["votre-slug.localhost", "votre-slug.nizarios.fr"],
+  "defaultLocale": "fr",
+  "locales": ["fr", "ar"],
+  "whatsappNumbers": ["+2126XXXXXXXX"],
+  "branding": {
+    "primaryColor": "#14532d",
+    "logoPath": "assets/logo.svg",
+    "tagline": {
+      "fr": "CHANGEME — accroche en français",
+      "ar": "CHANGEME — العبارة بالعربية"
+    }
+  },
+  "contacts": {
+    "city": "Rabat",
+    "districts": [],
+    "email": "",
+    "phone": ""
+  },
+  "admin": {
+    "email": "admin@votre-slug.example",
+    "name": "Admin CHANGEME"
+  },
+  "config": {
+    "pack": "presence-digitale-immo",
+    "priceMad": 2900
+  }
+}

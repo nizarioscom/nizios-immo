@@ -1,0 +1,56 @@
+# Développement local : Postgres + API + site public.
+# Depuis la racine du repo : docker compose -f infra/docker/docker-compose.yml up --build
+
+services:
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: nizios
+    ports:
+      - "5432:5432"
+    volumes:
+      - nizios_pg:/var/lib/postgresql/data
+      - ./initdb:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d nizios"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  api:
+    build:
+      context: ../..
+      dockerfile: infra/docker/Dockerfile.api
+    environment:
+      DATABASE_URL: postgresql://nizios:nizios@postgres:5432/nizios
+      JWT_SECRET: ${JWT_SECRET:-dev-only-not-a-secret}
+      JWT_EXPIRES_IN: 12h
+      API_PORT: 3001
+      WEB_ORIGIN: http://localhost:3000,http://localhost:3002
+      SEED_ADMIN_PASSWORD: ${SEED_ADMIN_PASSWORD:-demo-elhilal-2026}
+      NIZIOS_SUPERADMIN_EMAIL: ${NIZIOS_SUPERADMIN_EMAIL:-admin@nizios.example}
+      NIZIOS_SUPERADMIN_PASSWORD: ${NIZIOS_SUPERADMIN_PASSWORD:-demo-nizios-2026}
+      NIZIOS_SUPERADMIN_NAME: ${NIZIOS_SUPERADMIN_NAME:-Admin Nizios}
+    ports:
+      - "3001:3001"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  web:
+    build:
+      context: ../..
+      dockerfile: infra/docker/Dockerfile.web
+    environment:
+      API_URL_INTERNAL: http://api:3001
+      NEXT_PUBLIC_API_URL: http://localhost:3001
+      TENANT_HOST_MAP: '{"localhost":"elhilal","127.0.0.1":"elhilal"}'
+    ports:
+      - "3000:3000"
+    depends_on:
+      - api
+
+volumes:
+  nizios_pg:

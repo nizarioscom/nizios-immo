@@ -1,0 +1,33 @@
+{
+  "name": "nizios-immo",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Pack Présence Digitale Immo — template multi-tenant Nizios",
+  "packageManager": "pnpm@10.33.3",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "turbo build",
+    "dev": "turbo dev",
+    "lint": "turbo lint",
+    "test": "turbo test",
+    "db:generate": "pnpm --filter @nizios/db generate",
+    "db:migrate": "pnpm --filter @nizios/db migrate",
+    "db:seed": "pnpm --filter @nizios/db seed",
+    "db:sync": "pnpm --filter @nizios/db sync"
+  },
+  "devDependencies": {
+    "turbo": "2.5.4"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@nestjs/core",
+      "@prisma/client",
+      "@prisma/engines",
+      "esbuild",
+      "prisma",
+      "unrs-resolver"
+    ]
+  }
+}

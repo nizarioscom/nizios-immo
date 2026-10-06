@@ -1,0 +1,10 @@
+# Exemple non actif. À générer plus tard à partir des domaines des tenants.
+#
+# server {
+#   listen 80;
+#   server_name elhilal.nizarios.fr;
+#   location / {
+#     proxy_pass http://web:3000;
+#     proxy_set_header Host $host;
+#   }
+# }
