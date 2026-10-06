@@ -1,5 +1,7 @@
-/**
- * TODO Jour suivant : flux rule-based Darija/FR (qualification achat/location).
- * Rien ici pour l'instant — pas de logique spécifique à un client.
- */
-export {};
+export { loadDefaultFlow, mergeFlow, nudgeChat, sendChat, startChat, withNeighborhoods, leadFromAnswers, detectLocale } from './engine';
+export type { ChatInterpret } from './engine';
+export { normalizeMoroccanMobile, toWhatsappDigits } from './phone';
+export { formatLeadMessage, propertyWhatsappText, waMeUrl } from './whatsapp-message';
+export type { LeadNotice } from './whatsapp-message';
+export { NUDGE_AFTER_MS } from './types';
+export type { ChatLocale, ChatState, ChatTurn, Flow, QuickReply } from './types';

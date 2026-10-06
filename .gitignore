@@ -11,3 +11,4 @@ coverage/
 .DS_Store
 apps/*/.next/
 packages/db/src/generated/
+uploads/

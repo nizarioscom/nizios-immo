@@ -4,8 +4,8 @@ import { requireTenantId } from './tenant-scope';
 import { PrismaService } from '../prisma/prisma.service';
 
 /**
- * Seul point de lecture des biens et des leads.
- * Les modules HTTP de ces domaines viendront plus tard ; ils doivent passer ici.
+ * Lectures admin des biens et des leads.
+ * Les routes HTTP passent ici : requireTenantId puis la transaction RLS.
  */
 @Injectable()
 export class TenantScopedReader {
@@ -14,7 +14,11 @@ export class TenantScopedReader {
   async listProperties(actor: Actor, requestedTenantId?: string) {
     const tenantId = requireTenantId(actor, requestedTenantId);
     return this.prisma.forTenant(tenantId, (tx) =>
-      tx.property.findMany({ where: { tenantId }, orderBy: { createdAt: 'desc' } }),
+      tx.property.findMany({
+        where: { tenantId },
+        include: { photos: { orderBy: { sortOrder: 'asc' } } },
+        orderBy: { createdAt: 'desc' },
+      }),
     );
   }
 

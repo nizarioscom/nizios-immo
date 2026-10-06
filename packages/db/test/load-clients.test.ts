@@ -20,7 +20,9 @@ test('le dossier elhilal est chargé, le modèle _template est ignoré', () => {
   assert.ok(elhilal.domains.includes('localhost'));
   assert.deepEqual(elhilal.locales, ['fr', 'ar']);
   assert.equal(elhilal.whatsappNumbers[0], '+212600000026');
-  assert.equal(elhilal.content.fr.tagline, 'Agence immobilière à Rabat');
+  assert.equal(elhilal.content.fr.tagline, 'Achat et location à Agdal, Hay Riad, Hassan, Souissi et Océan');
+  assert.ok(elhilal.contacts.districts.includes('Souissi'));
+  assert.ok(elhilal.contacts.districts.includes('Océan'));
   assert.equal(typeof elhilal.content.ar.intro, 'string');
   assert.equal(elhilal.admin?.email, 'admin@elhilal.example');
 });

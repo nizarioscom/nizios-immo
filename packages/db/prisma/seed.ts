@@ -1,4 +1,5 @@
 import { PrismaClient } from '@prisma/client';
+import { seedDemoProperties } from '../src/seed-properties';
 import { syncTenants, upsertSuperAdmin } from '../src/sync-tenants';
 
 /**
@@ -10,7 +11,10 @@ async function main() {
   try {
     const slugs = await syncTenants(prisma);
     await upsertSuperAdmin(prisma);
-    console.log(`Seed OK. Clients : ${slugs.join(', ')}. Super-admin Nizios assuré.`);
+    const properties = await seedDemoProperties(prisma);
+    console.log(
+      `Seed OK. Clients : ${slugs.join(', ')}. Super-admin Nizios assuré. Biens créés : ${properties}.`,
+    );
   } finally {
     await prisma.$disconnect();
   }

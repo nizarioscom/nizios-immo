@@ -56,7 +56,7 @@ model User {
   @@index([tenantId])
 }
 
-/// Publié / dépublié. Pas d'endpoint HTTP au Jour 1.
+/// Publié / dépublié. L'admin bascule le statut ; le site public ne montre que PUBLISHED.
 enum PropertyStatus {
   PUBLISHED
   UNPUBLISHED
@@ -68,20 +68,34 @@ enum TransactionType {
 }
 
 model Property {
-  id           String           @id @default(uuid()) @db.Uuid
-  tenantId     String           @db.Uuid
-  tenant       Tenant           @relation(fields: [tenantId], references: [id], onDelete: Cascade)
-  title        String
-  description  String?          @db.Text
-  status       PropertyStatus   @default(UNPUBLISHED)
-  priceMad     Int?
-  neighborhood String?
-  transaction  TransactionType?
-  photos       PropertyPhoto[]
-  createdAt    DateTime         @default(now())
-  updatedAt    DateTime         @updatedAt
+  id            String           @id @default(uuid()) @db.Uuid
+  tenantId      String           @db.Uuid
+  tenant        Tenant           @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  /// Référence affichée et utilisée dans l'URL et le message WhatsApp. Unique par tenant.
+  reference     String
+  /// Titre français. Le titre arabe est dans titleAr.
+  title         String
+  titleAr       String           @default("")
+  description   String?          @db.Text
+  descriptionAr String?          @db.Text
+  status        PropertyStatus   @default(UNPUBLISHED)
+  priceMad      Int?
+  neighborhood  String?
+  transaction   TransactionType?
+  bedrooms      Int?
+  bathrooms     Int?
+  surfaceM2     Int?
+  featured      Boolean          @default(false)
+  /// Centroïde de quartier pour le lien carte, pas une adresse exacte.
+  latitude      Float?
+  longitude     Float?
+  photos        PropertyPhoto[]
+  leads         Lead[]
+  createdAt     DateTime         @default(now())
+  updatedAt     DateTime         @updatedAt
 
   @@unique([id, tenantId])
+  @@unique([tenantId, reference])
   @@index([tenantId])
   @@index([tenantId, status])
 }
@@ -105,6 +119,7 @@ enum LeadSource {
   WHATSAPP
   CALL
   MESSENGER
+  CHATBOT
 }
 
 /// Achat ou location.
@@ -127,11 +142,15 @@ model Lead {
   id           String      @id @default(uuid()) @db.Uuid
   tenantId     String      @db.Uuid
   tenant       Tenant      @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  propertyId   String?     @db.Uuid
+  property     Property?   @relation(fields: [propertyId], references: [id], onDelete: SetNull)
   source       LeadSource
   name         String
   phone        String
   intent       LeadIntent?
   budgetMad    Int?
+  /// Tranche ou montant lisible, utilisé dans le message WhatsApp.
+  budgetLabel  String?
   neighborhood String?
   timeline     String?
   status       LeadStatus  @default(NEW)
@@ -142,4 +161,5 @@ model Lead {
 
   @@index([tenantId])
   @@index([tenantId, status])
+  @@index([propertyId])
 }

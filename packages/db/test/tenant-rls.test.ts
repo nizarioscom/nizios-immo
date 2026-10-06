@@ -84,10 +84,10 @@ test('RLS : le tenant A ne voit pas les biens du tenant B', async (t) => {
       },
     });
     await tx.property.create({
-      data: { id: propertyA, tenantId: tenantA, title: 'Bien A', status: 'PUBLISHED' },
+      data: { id: propertyA, tenantId: tenantA, reference: 'RLS-A', title: 'Bien A', status: 'PUBLISHED' },
     });
     await tx.property.create({
-      data: { id: propertyB, tenantId: tenantB, title: 'Bien B', status: 'PUBLISHED' },
+      data: { id: propertyB, tenantId: tenantB, reference: 'RLS-B', title: 'Bien B', status: 'PUBLISHED' },
     });
   });
 

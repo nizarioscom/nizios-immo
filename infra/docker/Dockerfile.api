@@ -7,6 +7,6 @@ COPY packages ./packages
 COPY clients ./clients
 COPY infra ./infra
 RUN pnpm install --frozen-lockfile
-RUN pnpm --filter @nizios/db build && pnpm --filter @nizios/config build && pnpm --filter @nizios/api build
+RUN pnpm --filter @nizios/db build && pnpm --filter @nizios/config build && pnpm --filter @nizios/chatbot-flows build && pnpm --filter @nizios/api build
 EXPOSE 3001
 CMD ["sh", "infra/docker/api-entrypoint.sh"]

@@ -8,4 +8,9 @@
 6. Mettre à jour ce README : statut, ville, contacts.
 7. Lancer `pnpm db:sync` (ou `POST /tenants` avec le slug, en super-admin).
 
+Fichiers optionnels, toujours sans code :
+
+- `properties.json` : biens de démo insérés par `pnpm db:seed` seulement s'ils n'existent pas encore.
+- `chatbot/flow.json` : surcharge du flux par défaut (`packages/chatbot-flows`).
+
 Ne pas ajouter de code ici. Tout le comportement passe par la config.
