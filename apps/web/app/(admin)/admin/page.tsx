@@ -35,6 +35,14 @@ export default async function AdminHomePage() {
       <p className="mt-1 text-stone-600">
         Tenant : {me.tenant ? `${me.tenant.name} (${me.tenant.slug})` : 'aucun — compte Nizios'}
       </p>
+      <nav className="mt-8 flex gap-4 text-sm">
+        <a className="underline" href="/admin/biens">
+          Biens
+        </a>
+        <a className="underline" href="/admin/leads">
+          Leads
+        </a>
+      </nav>
       <div className="mt-8">
         <LogoutButton />
       </div>

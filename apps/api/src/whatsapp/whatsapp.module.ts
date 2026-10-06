@@ -1,5 +1,8 @@
 import { Module } from '@nestjs/common';
+import { WhatsappService } from './whatsapp.service';
 
-/** TODO : WhatsApp. Les numéros viennent de clients/<slug>/tenant.config.json. */
-@Module({})
+@Module({
+  providers: [WhatsappService],
+  exports: [WhatsappService],
+})
 export class WhatsappModule {}

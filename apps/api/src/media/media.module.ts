@@ -1,5 +1,7 @@
 import { Module } from '@nestjs/common';
+import { MediaController } from './media.controller';
 
-/** TODO : médias (logo et photos déposés dans clients/<slug>/assets). */
-@Module({})
+@Module({
+  controllers: [MediaController],
+})
 export class MediaModule {}

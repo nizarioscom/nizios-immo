@@ -27,6 +27,7 @@
       "@prisma/engines",
       "esbuild",
       "prisma",
+      "sharp",
       "unrs-resolver"
     ]
   }

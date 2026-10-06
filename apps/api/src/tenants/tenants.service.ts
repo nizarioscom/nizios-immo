@@ -9,18 +9,22 @@ import { toAdminTenant, toPublicTenant } from './tenant.presenter';
 export class TenantsService {
   constructor(private readonly prisma: PrismaService) {}
 
-  /** Résolution publique par hôte. Les domaines du dossier client font foi. */
-  async resolveByHost(hostHeader: string) {
+  /** Fiche complète, pour les routes publiques qui doivent rester dans un tenant. */
+  async findByHost(hostHeader: string) {
     const host = normalizeHost(hostHeader);
     if (!host) throw new NotFoundException('Tenant introuvable.');
     const tenants = await this.prisma.tenant.findMany();
     const byDomain = tenants.find((tenant) =>
       tenant.domains.some((domain) => domain.toLowerCase() === host),
     );
-    const match =
-      byDomain ?? tenants.find((tenant) => tenant.slug === resolveTenantHost(host));
+    const match = byDomain ?? tenants.find((tenant) => tenant.slug === resolveTenantHost(host));
     if (!match) throw new NotFoundException('Tenant introuvable.');
-    return toPublicTenant(match);
+    return match;
+  }
+
+  /** Résolution publique par hôte. Les domaines du dossier client font foi. */
+  async resolveByHost(hostHeader: string) {
+    return toPublicTenant(await this.findByHost(hostHeader));
   }
 
   async list(actor: Actor) {

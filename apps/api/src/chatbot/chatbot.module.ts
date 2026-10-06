@@ -1,5 +1,12 @@
 import { Module } from '@nestjs/common';
+import { LeadsModule } from '../leads/leads.module';
+import { TenantsModule } from '../tenants/tenants.module';
+import { ChatbotController } from './chatbot.controller';
+import { ChatbotService } from './chatbot.service';
 
-/** TODO : chatbot qualificateur Darija/FR, rule-based, branché sur @nizios/chatbot-flows. */
-@Module({})
+@Module({
+  imports: [TenantsModule, LeadsModule],
+  controllers: [ChatbotController],
+  providers: [ChatbotService],
+})
 export class ChatbotModule {}

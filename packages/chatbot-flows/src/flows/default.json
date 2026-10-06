@@ -1,0 +1,128 @@
+{
+  "id": "presence-digitale-immo",
+  "version": 1,
+  "entry": "greet",
+  "nudge": {
+    "ar": "مازال هنا إلا بغيتي تكمل. سؤال واحد يكفي.",
+    "fr": "Je suis toujours là si vous voulez continuer. Une seule question suffit."
+  },
+  "doneText": {
+    "ar": "شكرا. تسجلات الطلبية ديالك، والوكالة غادي تتاصل بيك.",
+    "fr": "Merci. Votre demande est enregistrée, l'agence va vous appeler."
+  },
+  "steps": {
+    "greet": {
+      "type": "message",
+      "text": {
+        "ar": "السلام، أنا المساعد ديال {{agency}}. نقدر نعاونك تلقى دار فالرباط.",
+        "fr": "Bonjour, je suis l'assistant de {{agency}}. Je peux vous aider à trouver un bien à Rabat."
+      },
+      "next": "intent"
+    },
+    "intent": {
+      "type": "choice",
+      "field": "intent",
+      "prompt": {
+        "ar": "بغيت تشري ولا تكري؟",
+        "fr": "Vous cherchez à acheter ou à louer ?"
+      },
+      "options": [
+        {
+          "value": "BUY",
+          "label": { "ar": "الشرا", "fr": "Achat" },
+          "synonyms": ["chra", "chri", "شرى", "شرا", "شري", "achat", "acheter", "buy", "nchri", "نشري"]
+        },
+        {
+          "value": "RENT",
+          "label": { "ar": "الكراء", "fr": "Location" },
+          "synonyms": ["kra", "kri", "كرا", "كري", "كراء", "location", "louer", "loyer", "rent", "nekri", "نكري"]
+        }
+      ],
+      "next": { "BUY": "budget_buy", "RENT": "budget_rent" }
+    },
+    "budget_buy": {
+      "type": "choice",
+      "field": "budget",
+      "prompt": {
+        "ar": "شحال فالميزانية ديال الشرا؟",
+        "fr": "Quel budget pour l'achat ?"
+      },
+      "options": [
+        { "value": "<300k", "label": { "ar": "أقل من 300 ألف", "fr": "Moins de 300 000 MAD" }, "synonyms": ["300", "moins"] },
+        { "value": "300-800k", "label": { "ar": "300 حتى 800 ألف", "fr": "300 000 à 800 000 MAD" }, "synonyms": ["800"] },
+        { "value": ">800k", "label": { "ar": "كثر من 800 ألف", "fr": "Plus de 800 000 MAD" }, "synonyms": ["plus"] }
+      ],
+      "next": "neighborhood"
+    },
+    "budget_rent": {
+      "type": "choice",
+      "field": "budget",
+      "prompt": {
+        "ar": "شحال فالكراء فالشهر؟",
+        "fr": "Quel loyer par mois ?"
+      },
+      "options": [
+        { "value": "<3k", "label": { "ar": "أقل من 3 آلاف", "fr": "Moins de 3 000 MAD" }, "synonyms": ["3"] },
+        { "value": "3-6k", "label": { "ar": "3 حتى 6 آلاف", "fr": "3 000 à 6 000 MAD" }, "synonyms": ["6"] },
+        { "value": ">6k", "label": { "ar": "كثر من 6 آلاف", "fr": "Plus de 6 000 MAD" }, "synonyms": ["plus"] }
+      ],
+      "next": "neighborhood"
+    },
+    "neighborhood": {
+      "type": "choice",
+      "field": "neighborhood",
+      "prompt": {
+        "ar": "أشمن حي فالرباط؟",
+        "fr": "Quel quartier à Rabat ?"
+      },
+      "options": [
+        { "value": "Agdal", "label": { "ar": "أكدال", "fr": "Agdal" }, "synonyms": ["agdal", "أكدال"] },
+        { "value": "Hay Riad", "label": { "ar": "حي الرياض", "fr": "Hay Riad" }, "synonyms": ["hay riad", "riad", "حي الرياض", "الرياض"] },
+        { "value": "Hassan", "label": { "ar": "حسان", "fr": "Hassan" }, "synonyms": ["hassan", "حسان"] },
+        { "value": "Souissi", "label": { "ar": "السويسي", "fr": "Souissi" }, "synonyms": ["souissi", "suissi", "السويسي"] },
+        { "value": "Océan", "label": { "ar": "المحيط", "fr": "Océan" }, "synonyms": ["ocean", "océan", "المحيط"] },
+        { "value": "Autre", "label": { "ar": "حي آخر", "fr": "Autre" }, "synonyms": ["autre", "آخر"] }
+      ],
+      "next": "timeline"
+    },
+    "timeline": {
+      "type": "choice",
+      "field": "timeline",
+      "prompt": {
+        "ar": "فوقاش بغيتي؟",
+        "fr": "C'est pour quand ?"
+      },
+      "options": [
+        { "value": "urgent", "label": { "ar": "مستعجل", "fr": "Urgent" }, "synonyms": ["urgent", "daba", "دابا", "مستعجل"] },
+        { "value": "ce mois-ci", "label": { "ar": "هاد الشهر", "fr": "Ce mois-ci" }, "synonyms": ["mois", "ce mois", "الشهر", "هاد الشهر"] },
+        { "value": "simple info", "label": { "ar": "غير معلومات", "fr": "Simple info" }, "synonyms": ["info", "information", "معلومات", "غير"] }
+      ],
+      "next": "name"
+    },
+    "name": {
+      "type": "text",
+      "field": "name",
+      "prompt": {
+        "ar": "شنو سميتك؟",
+        "fr": "Quel est votre nom ?"
+      },
+      "next": "phone"
+    },
+    "phone": {
+      "type": "phone",
+      "field": "phone",
+      "prompt": {
+        "ar": "عطيني رقم التيليفون، 06 ولا 07.",
+        "fr": "Votre téléphone, au format 06 ou 07."
+      },
+      "invalid": {
+        "ar": "الرقم خاصو يكون 06 ولا 07. عاود عافاك.",
+        "fr": "Le numéro doit commencer par 06 ou 07. Réessayez."
+      },
+      "next": "end"
+    },
+    "end": {
+      "type": "end"
+    }
+  }
+}

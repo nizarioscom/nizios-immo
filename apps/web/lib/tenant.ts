@@ -6,9 +6,10 @@ export type PublicTenant = {
   defaultLocale: string;
   locales: string[];
   branding: { primaryColor?: string };
+  districts?: string[];
   content: {
-    fr?: { tagline?: string; intro?: string };
-    ar?: { tagline?: string; intro?: string };
+    fr?: { tagline?: string; intro?: string; hero?: string };
+    ar?: { tagline?: string; intro?: string; hero?: string };
   };
 };
 

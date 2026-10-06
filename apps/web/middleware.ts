@@ -28,7 +28,11 @@ export function middleware(request: NextRequest) {
   if (slug) requestHeaders.set('x-tenant-slug', slug);
   else requestHeaders.delete('x-tenant-slug');
 
-  if (pathname.startsWith('/admin') || pathname.startsWith('/api')) {
+  if (
+    pathname.startsWith('/admin') ||
+    pathname.startsWith('/api') ||
+    pathname.startsWith('/media')
+  ) {
     return NextResponse.next({ request: { headers: requestHeaders } });
   }
 

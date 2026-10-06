@@ -11,7 +11,14 @@ type TenantRecord = {
   content: unknown;
 };
 
-/** Réponse publique : pas de numéros, pas de config interne. */
+function districtsOf(config: unknown): string[] {
+  if (!config || typeof config !== 'object') return [];
+  const contacts = (config as { contacts?: { districts?: unknown } }).contacts;
+  if (!contacts || !Array.isArray(contacts.districts)) return [];
+  return contacts.districts.filter((item): item is string => typeof item === 'string' && item.trim() !== '');
+}
+
+/** Réponse publique : pas de numéros, pas de config interne. Les quartiers servent à la recherche. */
 export function toPublicTenant(tenant: TenantRecord) {
   return {
     slug: tenant.slug,
@@ -20,6 +27,7 @@ export function toPublicTenant(tenant: TenantRecord) {
     locales: tenant.locales,
     branding: tenant.branding,
     content: tenant.content,
+    districts: districtsOf(tenant.config),
   };
 }
 

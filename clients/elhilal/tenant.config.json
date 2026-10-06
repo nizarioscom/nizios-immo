@@ -21,7 +21,7 @@
   },
   "contacts": {
     "city": "Rabat",
-    "districts": ["Agdal", "Hay Riad", "Hassan"],
+    "districts": ["Agdal", "Hay Riad", "Hassan", "Souissi", "Océan"],
     "email": "",
     "phone": ""
   },
