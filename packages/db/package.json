@@ -1,0 +1,41 @@
+{
+  "name": "@nizios/db",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "generate": "prisma generate",
+    "build": "DATABASE_URL=${DATABASE_URL:-postgresql://nizios:nizios@127.0.0.1:5432/nizios} prisma generate && tsc -p tsconfig.json",
+    "dev": "tsc -p tsconfig.json --watch",
+    "lint": "eslint src test --max-warnings 0",
+    "test": "tsx --test test/load-clients.test.ts test/sync-tenants.test.ts test/tenant-rls.test.ts",
+    "migrate": "dotenv -e ../../.env -- prisma migrate deploy",
+    "seed": "dotenv -e ../../.env -- tsx prisma/seed.ts",
+    "sync": "dotenv -e ../../.env -- tsx src/sync-cli.ts"
+  },
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
+  },
+  "dependencies": {
+    "@prisma/client": "6.6.0",
+    "bcryptjs": "2.4.3"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "2.4.6",
+    "@types/node": "22.15.21",
+    "@typescript-eslint/eslint-plugin": "7.18.0",
+    "@typescript-eslint/parser": "7.18.0",
+    "dotenv-cli": "8.0.0",
+    "eslint": "8.57.1",
+    "prisma": "6.6.0",
+    "tsx": "4.19.3",
+    "typescript": "5.6.3"
+  }
+}
